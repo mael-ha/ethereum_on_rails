@@ -1,4 +1,4 @@
-<h1>Ethereum Log-In</h1>
+<h1 class="">Ethereum Log-In</h1>
 <p>
   <em>
     Connect to an Ethereum wallet, retrieve the user's account,
@@ -15,7 +15,7 @@
       <%= text_field_tag :eth_address, "", readonly: true, data: {sessions_target: "inputEthAddress"}, class: "" %>
       <%= text_field_tag :eth_signature, "", readonly: true, data: {sessions_target: "inputEthSignature"}, class: "" %>
     <% end %>
-    <button data-action="click->sessions#signInWithEth" data-sessions-target="buttonEthConnect">Log-in with Ethereum</button>
+    <button data-action="click->sessions#signInWithEth" data-sessions-target="buttonEthConnect" class="text-2xl bg-black text-white">Log-in with Ethereum</button>
     <br /><br />... or
     <%= link_to "sign up", signup_path %>
     instead? or

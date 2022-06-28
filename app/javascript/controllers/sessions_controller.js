@@ -53,7 +53,7 @@ export default class extends Controller {
     // sign a message with current time and nonce from database
     const nonce = await this.getUuidByAccount(etherbase);
     if (nonce) {
-      const customTitle = "Ethereum on Rails";
+      const customTitle = "Rails Eth App - Sign in :";
       const requestTime = new Date().getTime();
       const message = customTitle + "," + requestTime + "," + nonce;
       const signature = await this.personalSign(etherbase, message);
