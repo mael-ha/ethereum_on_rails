@@ -10,12 +10,12 @@
 </p>
 <p>
   <% if !logged_in? %>
-    <%= form_tag "/login", class: "new_session" do %>
-      <%= text_field_tag :eth_message, "", readonly: true, class: "eth_message" %> <br />
-      <%= text_field_tag :eth_address, "", readonly: true, class: "eth_address" %> <br />
-      <%= text_field_tag :eth_signature, "", readonly: true, class: "eth_signature" %> <br />
+    <%= form_tag "/login", class: "new_session", data: {sessions_target: "formNewSession"} do %>
+      <%= text_field_tag :eth_message, "", readonly: true, data: {sessions_target: "inputEthMessage"}, class: "eth_message" %> <br />
+      <%= text_field_tag :eth_address, "", readonly: true, data: {sessions_target: "inputEthAddress"}, class: "eth_address" %> <br />
+      <%= text_field_tag :eth_signature, "", readonly: true, data: {sessions_target: "inputEthSignature"}, class: "eth_signature" %> <br />
     <% end %>
-    <button class="eth_connect">Log-in with Ethereum</button>
+    <button data-action="click->sessions#signInWithEth" data-sessions-target="buttonEthConnect">Log-in with Ethereum</button>
     <br /><br />... or
     <%= link_to "sign up", signup_path %>
     instead? or
