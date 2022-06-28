@@ -14,7 +14,7 @@
       <%= form.text_field :username %> <br />
       <%= form.text_field :eth_address, readonly: true, data: {users_target: "inputEthAddress"}, class: "eth_address" %> <br />
     <% end %>
-    <button data-action="click->users#tryEthConnect" data-users-target="buttonEthConnect">Sign-up with Ethereum</button>
+    <button data-action="click->users#initEthConnect" data-users-target="buttonEthConnect">Sign-up with Ethereum</button>
     <br/><br/>... or
     <%= link_to "log in", login_path %>
     instead? or
