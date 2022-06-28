@@ -6,13 +6,12 @@
     <%= csrf_meta_tags %>
     <%= csp_meta_tag %>
     <%= stylesheet_link_tag "tailwind", "inter-font", "data-turbo-track": "reload" %>
-
     <%= stylesheet_link_tag "application", "data-turbo-track": "reload" %>
     <%= javascript_importmap_tags %>
   </head>
 
   <body>
-      <main data-controller="users sessions" class="container mx-auto mt-28 px-5 flex-col">
+      <main data-controller="sessions" class="container mx-auto mt-28 px-5 flex-col">
         <p class="notice" style="color:DodgerBlue"><%= notice %></p>
         <p class="alert" style="color:Tomato"><%= alert %></p>
         <%= yield %>

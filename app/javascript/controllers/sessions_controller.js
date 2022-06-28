@@ -10,40 +10,39 @@
 import { Controller } from "@hotwired/stimulus"
 
 export default class extends Controller {
-  static targets = [ "inputEthMessage", "inputEthAddress", "inputEthSignature", "formNewSession", "buttonEthConnect" ]
+  static targets = [ "inputEthMessage", "inputEthAddress", "inputEthSignature", "formNewSession", "formNewUser", "buttonEthConnect" ]
 
   connect() {
     // the read-only eth fields, we process them automatically
-    this.inputEthMessageTarget.hidden = true;
-    this.inputEthAddressTarget.hidden = true;
-    this.inputEthSignatureTarget.hidden = true;
+    if (this.hasFormNewSessionTarget) {
+      console.log("action: NewSession")
+      this.inputEthMessageTarget.hidden = true;
+      this.inputEthAddressTarget.hidden = true;
+      this.inputEthSignatureTarget.hidden = true;
+    }
+    if (this.hasFormNewUserTarget) {
+      console.log("action: NewUser")
+      this.inputEthAddressTarget.hidden = true;
+    }
     if (typeof window.ethereum !== 'undefined') {
+      console.log("window.ethereum OK")
     } else {
+      console.log("window.ethereum NOT OK")
       // disable form submission in case there is no ethereum wallet available
       this.buttonEthConnectTarget.innerHTML = "No Ethereum Context Available";
       this.buttonEthConnectTarget.disabled = true;
     }
   }
 
-  // request ethereum wallet access and approved accounts[]
-  async requestAccounts() {
-    const accounts = await ethereum.request({ method: 'eth_requestAccounts' });
-    return accounts;
-  }
-
-  // request ethereum signature for message from account
-  async personalSign(account, message) {
-    const signature = await ethereum.request({ method: 'personal_sign', params: [ message, account ] });
-    return signature;
-  }
-
-  // get nonce from /api/v1/users/ by account
-  async getUuidByAccount(account) {
-    const response = await fetch("/api/v1/users/" + account);
-    const nonceJson = await response.json();
-    if (!nonceJson) return null;
-    const uuid = nonceJson[0].eth_nonce;
-    return uuid;
+  async signUpWithEth() {
+    // get the user form for submission later
+    this.buttonEthConnectTarget.disabled = true;
+    // request accounts from ethereum provider
+    const accounts = await this.requestAccounts();
+    const etherbase = accounts[0];
+    // populate and submit form
+    this.inputEthAddressTarget.value = etherbase;
+    this.formNewUserTarget.submit();
   }
 
   async signInWithEth() {
@@ -68,9 +67,25 @@ export default class extends Controller {
       this.inputEthMessageTarget.value = "Please sign up first!";
     }
   }
+
+  // request ethereum wallet access and approved accounts[]
+  async requestAccounts() {
+    const accounts = await ethereum.request({ method: 'eth_requestAccounts' });
+    return accounts;
+  }
+
+  // request ethereum signature for message from account
+  async personalSign(account, message) {
+    const signature = await ethereum.request({ method: 'personal_sign', params: [ message, account ] });
+    return signature;
+  }
+
+  // get nonce from /api/v1/users/ by account
+  async getUuidByAccount(account) {
+    const response = await fetch("/api/v1/users/" + account);
+    const nonceJson = await response.json();
+    if (!nonceJson) return null;
+    const uuid = nonceJson[0].eth_nonce;
+    return uuid;
+  }
 }
-
-
-// the button to connect to an ethereum wallet
-
-// get the new session form for submission later

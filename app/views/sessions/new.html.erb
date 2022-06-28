@@ -10,10 +10,10 @@
 </p>
 <p>
   <% if !logged_in? %>
-    <%= form_tag "/login", class: "new_session", data: {sessions_target: "formNewSession"} do %>
-      <%= text_field_tag :eth_message, "", readonly: true, data: {sessions_target: "inputEthMessage"}, class: "eth_message" %> <br />
-      <%= text_field_tag :eth_address, "", readonly: true, data: {sessions_target: "inputEthAddress"}, class: "eth_address" %> <br />
-      <%= text_field_tag :eth_signature, "", readonly: true, data: {sessions_target: "inputEthSignature"}, class: "eth_signature" %> <br />
+    <%= form_tag "/login", class: "", data: {sessions_target: "formNewSession"} do %>
+      <%= text_field_tag :eth_message, "", readonly: true, data: {sessions_target: "inputEthMessage"}, class: "" %>
+      <%= text_field_tag :eth_address, "", readonly: true, data: {sessions_target: "inputEthAddress"}, class: "" %>
+      <%= text_field_tag :eth_signature, "", readonly: true, data: {sessions_target: "inputEthSignature"}, class: "" %>
     <% end %>
     <button data-action="click->sessions#signInWithEth" data-sessions-target="buttonEthConnect">Log-in with Ethereum</button>
     <br /><br />... or
